@@ -1,90 +1,96 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Formulário Moderno</title>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formulário de Contato</title>
   <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
+    :root {
+      --bg-color: #f5f5f5;
+      --input-bg: #ffffff;
+      --primary: #4a90e2;
+      --text-color: #333;
+      --error-color: #d32f2f;
+      --border-radius: 8px;
     }
 
     body {
-      background: #f0f2f5;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: start;
-      padding-top: 30px;
-      min-height: 100vh;
-    }
-
-    form {
-      background: #fff;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      max-width: 500px;
-      width: 90%;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
+      margin: 0;
     }
 
     h2 {
       text-align: center;
-      color: #333;
+      margin-bottom: 30px;
+      color: var(--primary);
     }
 
-    label {
-      display: flex;
-      flex-direction: column;
-      font-size: 14px;
-      color: #444;
+    form {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 25px;
+      border-radius: var(--border-radius);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
 
-    input[type="text"],
-    input[type="email"],
-    input[type="date"],
-    input[type="number"] {
-      padding: 10px;
-      font-size: 15px;
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: var(--border-radius);
       border: 1px solid #ccc;
-      border-radius: 6px;
-      margin-top: 4px;
+      font-size: 1rem;
+      box-sizing: border-box;
     }
 
-    input[type="checkbox"] {
-      transform: scale(1.2);
+    input:focus {
+      border-color: var(--primary);
+      outline: none;
+    }
+
+    .checkboxes {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .checkboxes label {
+      display: flex;
+      align-items: center;
+      font-size: 0.95rem;
+    }
+
+    .checkboxes input {
+      width: auto;
       margin-right: 8px;
     }
 
-    .checkbox-group {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 15px;
+    .error {
+      color: var(--error-color);
+      font-size: 0.9em;
+      margin-top: -10px;
+      margin-bottom: 10px;
     }
 
     button {
-      background-color: #25D366;
+      background-color: var(--primary);
       color: white;
-      font-size: 16px;
-      padding: 12px;
+      font-weight: bold;
       border: none;
-      border-radius: 6px;
       cursor: pointer;
-      transition: 0.3s;
+      transition: background-color 0.3s;
     }
 
     button:hover {
-      background-color: #1eb755;
+      background-color: #357abd;
     }
 
-    @media (max-width: 500px) {
+    @media (max-width: 600px) {
       form {
         padding: 15px;
       }
@@ -92,121 +98,157 @@
   </style>
 </head>
 <body>
+  <h2>Formulário de Contato</h2>
+  <form id="form">
+    <input type="text" id="nome" placeholder="Nome completo" required />
 
-  <form id="formulario">
-    <h2>Cadastro</h2>
+    <input type="text" id="nascimento" placeholder="Data de nascimento (dd/mm/aaaa)" maxlength="10" required />
+    <div id="nasc-erro" class="error"></div>
 
-    <label>Nome Completo:
-      <input type="text" name="nome" required>
-    </label>
+    <input type="text" id="cep" placeholder="CEP" maxlength="9" required />
+    <div id="cep-erro" class="error"></div>
 
-    <label>CPF:
-      <input type="text" name="cpf" id="cpf" required placeholder="Ex: 123.456.789-00">
-    </label>
+    <input type="text" id="endereco" placeholder="Endereço" required />
+    <input type="text" id="bairro" placeholder="Bairro" required />
+    <input type="text" id="numero" placeholder="Número da casa" required />
+    <input type="text" id="complemento" placeholder="Complemento" />
 
-    <label>Data de Nascimento:
-      <input type="date" name="data_nascimento" required>
-    </label>
+    <input type="text" id="telefone" placeholder="Telefone com DDD (ex: 11999999999)" maxlength="11" required />
+    <div id="tel-erro" class="error"></div>
 
-    <label>CEP:
-      <input type="text" name="cep" id="cep" required placeholder="Ex: 01001-000">
-    </label>
+    <input type="email" id="email" placeholder="E-mail" required />
+    <div id="email-erro" class="error"></div>
 
-    <label>Rua:
-      <input type="text" name="rua" id="rua" required readonly>
-    </label>
+    <input type="text" id="cpf" placeholder="CPF" maxlength="14" required />
+    <div id="cpf-erro" class="error"></div>
 
-    <label>Bairro:
-      <input type="text" name="bairro" id="bairro" required>
-    </label>
-
-    <label>Número:
-      <input type="text" name="numero" required>
-    </label>
-
-    <label>Complemento:
-      <input type="text" name="complemento">
-    </label>
-
-    <label>E-mail:
-      <input type="email" name="email" required>
-    </label>
-
-    <label>DDD:
-      <input type="text" name="ddd" maxlength="2" required>
-    </label>
-
-    <label>Contato:
-      <input type="text" name="contato" id="contato" required placeholder="Ex: 91234-5678">
-    </label>
-
-    <div class="checkbox-group">
-      <label><input type="checkbox" name="esim" checked> eSIM</label>
-      <label><input type="checkbox" name="portabilidade"> Portabilidade</label>
+    <div class="checkboxes">
+      <label><input type="checkbox" id="esim" checked /> Esim</label>
+      <label><input type="checkbox" id="portabilidade" /> Portabilidade</label>
     </div>
 
     <button type="submit">Enviar para WhatsApp</button>
   </form>
 
   <script>
-    function validarCPF(cpf) {
-      cpf = cpf.replace(/[^\d]+/g,'');
-      if (cpf === '' || cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
+    const cepInput = document.getElementById('cep');
+    const enderecoInput = document.getElementById('endereco');
+    const bairroInput = document.getElementById('bairro');
+    const cepErro = document.getElementById('cep-erro');
 
+    cepInput.addEventListener('blur', () => {
+      const cep = cepInput.value.replace(/\D/g, '');
+      if (cep.length !== 8) {
+        cepErro.textContent = 'CEP inválido';
+        return;
+      }
+      fetch(`https://viacep.com.br/ws/${cep}/json/`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.erro) {
+            cepErro.textContent = 'CEP não encontrado';
+            enderecoInput.value = '';
+            bairroInput.value = '';
+          } else {
+            cepErro.textContent = '';
+            enderecoInput.value = data.logradouro;
+            bairroInput.value = data.bairro;
+          }
+        });
+    });
+
+    // CPF
+    function validarCPF(cpf) {
+      cpf = cpf.replace(/[^\d]+/g, '');
+      if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
       let soma = 0;
       for (let i = 0; i < 9; i++) soma += parseInt(cpf.charAt(i)) * (10 - i);
-      let resto = 11 - (soma % 11);
+      let resto = (soma * 10) % 11;
       if (resto === 10 || resto === 11) resto = 0;
       if (resto !== parseInt(cpf.charAt(9))) return false;
-
       soma = 0;
       for (let i = 0; i < 10; i++) soma += parseInt(cpf.charAt(i)) * (11 - i);
-      resto = 11 - (soma % 11);
+      resto = (soma * 10) % 11;
       if (resto === 10 || resto === 11) resto = 0;
       return resto === parseInt(cpf.charAt(10));
     }
 
-    $("#cep").on("blur", function() {
-      var cep = $(this).val().replace(/\D/g, '');
-      if (cep.length === 8) {
-        $.getJSON("https://viacep.com.br/ws/" + cep + "/json/", function(dados) {
-          if (!("erro" in dados)) {
-            if (dados.logradouro) {
-              $("#rua").val(dados.logradouro).prop('readonly', true);
-            } else {
-              $("#rua").val("").prop('readonly', false);
-            }
-            $("#bairro").val(dados.bairro);
-          } else {
-            alert("CEP não encontrado.");
-            $("#rua").val("").prop('readonly', false);
-          }
-        });
+    document.getElementById('cpf').addEventListener('blur', () => {
+      const cpf = document.getElementById('cpf').value;
+      const erro = document.getElementById('cpf-erro');
+      if (!validarCPF(cpf)) {
+        erro.textContent = 'CPF inválido, por favor corrigir.';
+      } else {
+        erro.textContent = '';
       }
     });
 
-    $("#formulario").on("submit", function(e) {
+    // Telefone
+    const telInput = document.getElementById('telefone');
+    telInput.addEventListener('input', () => {
+      const erro = document.getElementById('tel-erro');
+      const valor = telInput.value.replace(/\D/g, '');
+      erro.textContent = (valor.length === 11) ? '' : 'Telefone deve ter 11 dígitos';
+    });
+
+    // E-mail
+    const emailInput = document.getElementById('email');
+    emailInput.addEventListener('input', () => {
+      const erro = document.getElementById('email-erro');
+      const valor = emailInput.value;
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      erro.textContent = regex.test(valor) ? '' : 'E-mail inválido';
+    });
+
+    // Nascimento - máscara e validação
+    const nascimentoInput = document.getElementById('nascimento');
+    nascimentoInput.addEventListener('input', () => {
+      let valor = nascimentoInput.value.replace(/\D/g, '');
+      if (valor.length > 2) valor = valor.slice(0,2) + '/' + valor.slice(2);
+      if (valor.length > 5) valor = valor.slice(0,5) + '/' + valor.slice(5,9);
+      nascimentoInput.value = valor;
+    });
+
+    nascimentoInput.addEventListener('blur', () => {
+      const erro = document.getElementById('nasc-erro');
+      const regexData = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(19|20)\d{2}$/;
+      erro.textContent = regexData.test(nascimentoInput.value) ? '' : 'Data inválida. Use o formato dd/mm/aaaa';
+    });
+
+    // Envio para WhatsApp
+    document.getElementById('form').addEventListener('submit', function(e) {
       e.preventDefault();
 
-      const cpf = $("#cpf").val();
-      if (!validarCPF(cpf)) {
-        alert("CPF inválido!");
-        return;
-      }
+      const nome = document.getElementById('nome').value;
+      const nascimento = document.getElementById('nascimento').value;
+      const cep = document.getElementById('cep').value;
+      const endereco = document.getElementById('endereco').value;
+      const bairro = document.getElementById('bairro').value;
+      const numero = document.getElementById('numero').value;
+      const complemento = document.getElementById('complemento').value;
+      const telefone = document.getElementById('telefone').value;
+      const email = document.getElementById('email').value;
+      const cpf = document.getElementById('cpf').value;
+      const esim = document.getElementById('esim').checked ? 'Sim' : 'Não';
+      const port = document.getElementById('portabilidade').checked ? 'Sim' : 'Não';
 
-      const dados = $(this).serializeArray();
-      let mensagem = "📝 *Novo Cadastro:*\n";
+      const mensagem = `
+*Formulário enviado:*
+👤 Nome: ${nome}
+🎂 Nascimento: ${nascimento}
+📬 CEP: ${cep}
+🏠 Endereço: ${endereco}, Nº ${numero}, Bairro ${bairro}, ${complemento}
+📞 Telefone: ${telefone}
+📧 E-mail: ${email}
+🆔 CPF: ${cpf}
+📲 Esim: ${esim}
+🔁 Portabilidade: ${port}
+      `;
 
-      dados.forEach(item => {
-        const label = item.name.charAt(0).toUpperCase() + item.name.slice(1).replace(/_/g, ' ');
-        mensagem += `*${label}*: ${item.value}\n`;
-      });
-
-      const numero = "73982302994";
-      const url = `https://wa.me/55${numero}?text=${encodeURIComponent(mensagem)}`;
-      window.open(url, "_blank");
+      const fone = "5573982302994";
+      const url = `https://wa.me/${fone}?text=${encodeURIComponent(mensagem)}`;
+      window.open(url, '_blank');
     });
   </script>
-
 </body>
 </html>
